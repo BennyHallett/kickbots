@@ -4,11 +4,13 @@ require 'kickbots/messages/init'
 
 class TestInitMessage < Minitest::Test
   def test_create_message_with_no_team_name_fails
-    begin
+    assert_raises RuntimeError do
       InitMessage.new nil
-      assert false, 'Should not be able to create Init Message with no team name'
-    rescue
-      # expected
     end
+  end
+
+  def test_create_message_with_team
+    msg = InitMessage.new 'kickbots'
+    assert_equal '(init kickbots)', msg.payload
   end
 end
